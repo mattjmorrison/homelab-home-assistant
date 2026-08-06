@@ -18,7 +18,7 @@ spec:
       initContainers:
         - name: init-config
           image: busybox
-          command: ['sh', '-c', '[ -f /config/configuration.yaml ] || cp /tmp/initial-config/configuration.yaml /config/configuration.yaml && mkdir -p /config/.storage && [ -f /config/.storage/http ] || cp /tmp/http-storage/http /config/.storage/http']
+          command: ['sh', '-c', '[ -f /config/configuration.yaml ] || cp /tmp/initial-config/configuration.yaml /config/configuration.yaml && mkdir -p /config/.storage && cp /tmp/http-storage/http /config/.storage/http && cp /tmp/onboarding-storage/onboarding /config/.storage/onboarding']
           volumeMounts:
             - name: config
               mountPath: /config
@@ -26,6 +26,8 @@ spec:
               mountPath: /tmp/initial-config
             - name: http-storage
               mountPath: /tmp/http-storage
+            - name: onboarding-storage
+              mountPath: /tmp/onboarding-storage
       containers:
         - name: home-assistant
           image: ghcr.io/home-assistant/home-assistant:stable
@@ -44,3 +46,6 @@ spec:
         - name: http-storage
           configMap:
             name: home-assistant-http-storage
+        - name: onboarding-storage
+          configMap:
+            name: home-assistant-onboarding-storage
