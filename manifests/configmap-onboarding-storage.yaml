@@ -10,10 +10,6 @@ data:
       "minor_version": 1,
       "key": "onboarding",
       "data": {
-        "done": [
-          "core_config",
-          "analytics",
-          "integration"
-        ]
+        "done": []
       }
     }
