@@ -15,6 +15,15 @@ spec:
     spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
+      initContainers:
+        - name: init-config
+          image: busybox
+          command: ['sh', '-c', '[ -f /config/configuration.yaml ] || cp /tmp/initial-config/configuration.yaml /config/configuration.yaml']
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: initial-config
+              mountPath: /tmp/initial-config
       containers:
         - name: home-assistant
           image: ghcr.io/home-assistant/home-assistant:stable
@@ -27,3 +36,6 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: home-assistant-config
+        - name: initial-config
+          configMap:
+            name: home-assistant-initial-config
