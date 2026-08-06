@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-assistant-http-storage
+  namespace: home-assistant
+data:
+  http: |
+    {
+      "version": 2,
+      "minor_version": 2,
+      "key": "http",
+      "data": {
+        "stable": {
+          "cors_allowed_origins": [
+            "https://cast.home-assistant.io"
+          ],
+          "ip_ban_enabled": true,
+          "ssl_profile": "modern",
+          "server_port": 8123,
+          "login_attempts_threshold": -1,
+          "use_x_frame_options": true,
+          "use_x_forwarded_for": true,
+          "trusted_proxies": [
+            "10.0.0.0/8",
+            "172.16.0.0/12",
+            "192.168.0.0/16"
+          ]
+        },
+        "pending": null,
+        "yaml_migration_done": true
+      }
+    }
